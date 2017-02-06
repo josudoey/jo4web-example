@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jo4web": "^0.0.9"
+    "jo4web": "^0.0.16",
+    "koa-static-cache": "^3.2.0",
+    "memory-fs": "^0.4.1",
+    "proxyquire": "^1.7.11",
+    "webpack4vue": "^1.0.3"
   }
 }
