@@ -18,22 +18,24 @@ var authBasic = auth.koa(basic);
 
 app.use(authBasic);
 
-var view = require('jo4web/pug/example')({});
+var view = require('view4pug')();
 app.use(function* () {
-  this.body = yield view;
+  this.body = view('view4pug/example', {
+    youAreUsingPug: (Math.random() > 0.5)
+  });
 });
 
 co(function* () {
   var createServer = require('jo4web/koa/createServer');
-  var createPrivate = require('jo4web/crypto/createPrivateKey');
-  var createCert = require('jo4web/crypto/createCert');
-  yield createPrivate(app);
-  yield createCert(app);
+  var setCert = require('jo4web/self-signed');
+  setCert(app);
   var server = createServer(app);
   server.on('listening', function () {
     var web_listen = server.address().address + ':' + server.address().port;
     Log.info('service listein on ' + web_listen);
   });
   server.listen(3000);
+}).catch(function (err) {
+  Log.error(err);
 });
 
