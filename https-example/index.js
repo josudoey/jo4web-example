@@ -26,10 +26,9 @@ app.use(function* () {
 });
 
 co(function* () {
-  var createServer = require('jo4web/koa/createServer');
-  var setCert = require('jo4web/self-signed');
-  setCert(app);
-  var server = createServer(app);
+  var createServer = require('koa4listen');
+  var opts = require('cert4https');
+  var server = createServer(app, opts);
   server.on('listening', function () {
     var web_listen = server.address().address + ':' + server.address().port;
     Log.info('service listein on ' + web_listen);
